@@ -1,0 +1,157 @@
+.container
+    position: relative
+    padding-left: 3px
+
+    .content
+        .commands-area
+            padding: 24px 250px
+
+        table
+            width: 100%
+            border-collapse: collapse
+
+            thead
+                td
+                    position: relative
+                    font-weight: 500
+                    padding: 17px 16px
+                    border-bottom: 1px solid rgb(226, 231, 234)
+
+                    &:after
+                        content: ''
+                        position: absolute
+                        top: 50%
+                        right: 0
+                        width: 1px
+                        height: 50%
+                        background-color: rgb(226, 231, 234)
+                        transform: translateY(-50%)
+
+                    &.priority-label 
+                        padding: 0
+
+                    &.priority-label:after,
+                    &.executor:after
+                        display: none
+
+            tbody
+                td 
+                    padding: 21px 17px
+                    cursor: pointer
+
+                    &.priority-label 
+                        width: 6px
+                        padding: 0
+
+                    .status-badage
+                        display: inline-block
+                        color: white
+                        border-radius: 9999px
+                        padding: 8px 16px
+
+    .popup
+        position: fixed
+        top: 0
+        right: 0
+        height: 100vh
+        width: 55vw
+        background-color: rgb(236, 243, 247)
+        overflow: auto
+
+        .tag
+            background: white
+            border: 1px solid gray
+            color: gray
+            border-radius: 9999px
+            padding: 4px 12px
+            margin: 5px 3px
+
+        header 
+            position: relative
+            background-color: rgb(26, 72, 118)
+            color: white
+            padding: 23px 37px
+
+            .close-btn 
+                position: absolute
+                top: 50%
+                right: 37px
+                transform: translateY(-50%)
+                color: white
+                cursor: pointer
+                font-size: 18px
+
+        .content
+            padding: 55px 37px
+
+            input,
+            textarea 
+                width: 100%
+
+            .item-wrapper
+                width: 100%
+                margin-bottom: 23px
+
+                .label
+                    font-size: 14px
+                    color: #9f9ea7
+                    margin-bottom: 14px
+
+                .input
+                    width: 100%
+                    border-radius: 5px
+                    border: 1px solid #e8e8e8
+
+        &.popup-edit
+            .content
+                padding-top: 0
+                display: grid
+                grid-template-columns: 6fr 4fr
+                
+                .right
+                    padding-top: 30px 
+                    padding-left: 30px
+                    border-left: 1px solid #d7dce0
+
+                .left
+                    padding-top: 30px 
+                    padding-right: 20px
+
+                    .comments-section
+                        margin-top: 50px
+
+                        .item-wrapper
+                            margin-bottom: 10px
+
+                        .comment
+                            margin-top: 30px
+
+                            .header
+                                display: flex
+
+                                .photo
+                                    background-color: #f5f5f5
+                                    border-radius: 50%
+                                    width: 20px
+                                    height: 20px
+                                    border: 1px solid gray
+                                    margin-right: 10px
+
+                                .info
+                                    .author
+                                        font-size: 14px
+
+                                    .date
+                                        font-size: 12px
+
+                            .text
+                                background-color: #e3e9f4
+                                border-radius: 5px
+                                box-shadow: 0 0 5px rgba(0, 0, 0, .25)
+                                margin-left: 30px
+                                margin-top: 20px
+                                padding: 10px 10px
+                        
+
+
+

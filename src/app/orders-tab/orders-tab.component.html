@@ -1,0 +1,142 @@
+<div class="container" *mobxAutorun>
+  <div class="content">
+    <div class="commands-area">
+      <button class="btn-primary" (click)="onCreateButtonClick()">Создать заявку</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <td class="priority-label"></td>
+          <td>ID</td> 
+          <td>Название</td> 
+          <td>Статус</td> 
+          <td class="executor">Исполнитель</td> 
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let order of store.orders" (click)="onOrderClick(order)">
+          <td class="priority-label" [style.backgroundColor]="order.priorityRgb"></td> 
+          <td>{{ order.id | truncate: 10 }}</td>
+          <td>{{ order.name | truncate: 30 }}</td>
+          <td>
+            <div class="status-badage" [style.backgroundColor]=order.statusRgb>{{ order.statusName | truncate: 10 }}</div>
+          </td>
+          <td>{{ order.executorName | truncate: 20 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="createPopupVisible$" class="popup popup-create">
+      <header>
+        <span>Новая заявка</span>
+        <span class="close-btn" (click)="onPopupCloseClick()">✖</span>
+      </header> 
+      <div class="content">
+        <div class="input-wrapper">
+          <div class="label">Название</div>
+          <textarea #name class="input" rows=4></textarea>
+        </div>
+        <div class="input-wrapper">
+          <div class="label">Описание</div>
+          <textarea #description class="input" rows=5></textarea>
+        </div>
+        <button class="btn-primary" (click)="onNewOrder(name.value, description.value)">Сохранить</button>
+      </div>
+    </div>
+
+    <div *ngIf="editPopupVisible$" class="popup popup-edit">
+        <header>
+          <span>№&nbsp;{{ popupOrder$.id }}&nbsp;</span>
+          <span>{{ popupOrder$.name }}</span>
+          <span class="close-btn" (click)="onPopupCloseClick()">✖</span>
+        </header> 
+        <div class="content">
+          <div class="left">
+            <div class="item-wrapper">
+              <div class="label">Описание</div>
+              <div [innerHTML]="popupOrder$.description"></div>
+            </div>
+            <button 
+              class="btn-primary" 
+              (click)="onEditSave( 
+                status.getValue(),
+                executor.getValue()
+              )"
+            >Сохранить</button>
+            <div class="comments-section">
+              <div class="item-wrapper">
+                  <div class="label">Добавить комментарий</div>
+                  <textarea #comment rows=3></textarea> 
+              </div>
+              <button 
+                class="btn-secondary" 
+                (click)="onAddComment()"
+              >Добавить</button>
+              <div>
+                <div class="comment" *ngFor="let comment of popupOrder$.comments">
+                  <div class="header">
+                    <div class="photo"></div>
+                    <div class="info"> 
+                      <div class="author">Иванов Александр</div>
+                      <div class="date">{{ comment.date | date: 'dd MMMM, HH:mm' }} прокомментировал</div>
+                    </div>
+                  </div>
+                  <div class="text" [innerHTML]="comment.text"></div> 
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <div class="item-wrapper">
+              <span [style.color]=popupOrder$.statusRgb [hidden]="status.isEditMode$">●</span>&nbsp;
+              <editable-field 
+                  #status
+                  input-type="select" 
+                  [value]="popupOrder$.statusId"
+                  [select-options]="store.statusesOptions"
+              ></editable-field>
+            </div>
+            <div class="item-wrapper">
+              <div class="label">Заявитель</div>
+              <div>{{ popupOrder$.initiatorName }}</div>
+            </div>
+            <div class="item-wrapper">
+              <div class="label">Создана</div>
+              <div>{{ popupOrder$.initiatorName }}</div>
+            </div>
+            <div class="item-wrapper">
+              <div class="label">Исполнитель</div>
+              <editable-field
+                  #executor 
+                  input-type="select" 
+                  [value]="popupOrder$.executorId"
+                  [select-options]="store.usersOptions"
+              ></editable-field>
+            </div>
+            <div class="item-wrapper">
+              <div class="label">Приоритет</div>
+              <div>{{ popupOrder$.priorityName }}</div>
+            </div>
+            <div *ngIf="popupOrder$.resolutionDatePlan" class="item-wrapper">
+              <div class="label">Срок</div>
+              <div>
+                <img src="assets/img/icon_calendar.png" alt="calendar icon"/>&nbsp;
+                <span>{{ popupOrder$.resolutionDatePlan | date: 'dd.MM.yyyy' }}</span>
+                &nbsp;г.
+              </div>
+            </div>
+            <div *ngIf="popupOrder$.resolutionDatePlan" class="item-wrapper">
+              <div class="label">Теги</div>
+              <div>
+                <span class="tag" *ngFor="let tag of popupOrder$.tags">
+                  {{ tag.name }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+

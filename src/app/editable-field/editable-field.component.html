@@ -1,0 +1,9 @@
+<span [hidden]="isEditMode$" (click)="onClick()" [innerHTML]="displayedValue$"></span>
+<span [hidden]="!isEditMode$">
+  <input #input *ngIf="inputType$ === 'input'" [value]="value$" />
+  <select #input *ngIf="inputType$ === 'select'">
+    <option *ngFor="let option of selectOptions$" [value]="option.value" [attr.selected]="option.value == value$ ? '' : null">{{ option.name }}</option>
+  </select>
+  <textarea #input *ngIf="inputType$ === 'textarea'" [value]="value$" [rows]="textareaRows$">
+  </textarea>
+</span>

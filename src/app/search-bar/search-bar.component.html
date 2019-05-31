@@ -1,0 +1,16 @@
+<div class="input-wrapper">
+    <div #tags class="tags-wrapper"> 
+        <span *ngFor="let tag of inputTags; let i = index" class="tag">
+            {{ tag }}&nbsp;
+            <span class="delete-btn" (click)="onTagDeleteClick(i)">✖</span>
+        </span>
+    </div>
+    <input 
+        #input 
+        [attr.placeholder]="inputTags.length ? null : placeholder" 
+        (keyup)="onKey($event)" 
+        [style.paddingLeft]="inputPadding + 'px'" 
+        [style.width]="'calc(100% - ' + inputPadding + 'px' + ')'"         
+    />
+    <img src="assets/img/icon_search.png" alt="search icon" class="icon" />
+</div>

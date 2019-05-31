@@ -1,27 +1,34 @@
-# Intravision
+# Intravision hometask
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+## Install
 
-## Development server
+Using yarn:
+```
+yarn instiall
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Using npm:
+```
+npm install
+```
 
-## Code scaffolding
+If you haven't nodejs/npm: see install guid [here](https://nodejs.org/en/download/package-manager/) 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Running
 
-## Build
+Run with webpack server ([localhost:4200](http://localhost:4200)):
+```
+yarn start
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Build static version:
+```
+yarn build
+```
 
-## Running unit tests
+## Architecture
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* AppComponent is the root element of the application. It implements the layout (menu + searchbar + router element)
+* Each tab has the own component, named {TAB_NAME}TabComponent, stored in /components/{TAB_NAME}-tab/
+* All API requests are made by using APIService (./api.service.ts)
+* State managemend is mad be using of [MobX](https://mobx.js.org/), integrated with [mobx-angular](https://github.com/mobxjs/mobx-angular). The application has the only one store:./components/orders-tab/oders.store.ts. The store requests (on init) and store all the data that obtain from the API (users, order, statuses, etc.)
